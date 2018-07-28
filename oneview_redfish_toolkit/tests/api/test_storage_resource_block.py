@@ -58,7 +58,7 @@ class TestStorageResourceBlock(BaseTest):
             self.drive, self.drive_index_tree, self.server_profile_templates)
         result = json.loads(resource_block.serialize())
 
-        self.assertEqual(self.resource_block_mockup, result)
+        self.assertEqualMockup(self.resource_block_mockup, result)
 
     def test_when_server_profile_template_has_not_storage_controller(self):
         templates = copy.copy(self.server_profile_templates)
