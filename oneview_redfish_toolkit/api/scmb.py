@@ -54,7 +54,7 @@ def get_oneview_client():
     ov_config = connection.create_oneview_config(
         ip=config.get_oneview_ip(),
         credentials=config.get_credentials(),
-        api_version=500
+        api_version=300
     )
     ov_client = OneViewClient(ov_config)
     ov_client.connection.login(config.get_credentials())
