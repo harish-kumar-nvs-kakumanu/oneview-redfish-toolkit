@@ -37,14 +37,74 @@ STATUS_MAP = {
     }
 }
 
+<<<<<<< Updated upstream
 
 def get_redfish_state(oneview_status):
     """Gets corresponding Redfish State"""
 
     return STATUS_MAP[oneview_status]["State"]
+=======
+HEALTH_STATUS_MAPPING = {
+    "Critical": "Critical",
+    "OK": "OK",
+    "Unknown": "Warning",
+    "Disabled": "Warning",
+    "Warning": "Warning",
+}
+
+COMPOSITION_STATE_MAPPING = {
+    "NoProfileApplied": "Unused",
+    "ApplyingProfile": "Composing",
+    "ProfileApplied": "Composed",
+    "ProfileError": "Failed"
+}
+
+COMPUTER_SYSTEM_STATE_MAPPING = {
+    "NoProfileApplied": "Enabled",
+    "Monitored": "Enabled",
+    "ProfileApplied": "Enabled",
+    "Unsupported": "UnavailableOffline",
+    "Unknown": "Absent",
+    "RemoveFailed": "StandbyOffline",
+    "ProfileError": "StandbyOffline",
+    "Unmanaged": "StandbyOffline",
+    "Removing": "Updating",
+    "ApplyingProfile": "Updating",
+    "RemovingProfile": "Updating",
+    "UpdatingFirmware": "Updating",
+    "Adding": "Updating",
+    "Removed": "Disabled"
+}
+
+SERVER_PROFILE_STATE_MAPPING = {
+    "Normal": "Enabled",
+    "Creating": "Updating",
+    "Updating": "Updating",
+    "Deleting": "Updating",
+    "CreateFailed": "StandbyOffline",
+    "UpdateFailed": "StandbyOffline",
+    "DeleteFailed": "StandbyOffline"
+}
 
 
-def get_redfish_health(oneview_status):
+def get_redfish_status_struct(oneview_status):
+    state = STATUS_MAP[oneview_status]["State"]
+    health = STATUS_MAP[oneview_status]["Health"]
+    return state, health
+
+def get_redfish_state(oneview_state, ov_to_rf_map):
+    """Gets corresponding Redfish State"""
+    try:
+        return ov_to_rf_map[oneview_state]
+    except KeyError as e:
+        logging.info("The key {} was not found inside "
+                     "{} map when trying to get a Oneview's status"
+                     .format(e.args[0], ov_to_rf_map))
+        return None
+>>>>>>> Stashed changes
+
+
+def get_redfish_health_status(oneview_health_status):
     """Gets corresponding Redfish Health"""
 
-    return STATUS_MAP[oneview_status]["Health"]
+    return HEALTH_STATUS_MAPPING[oneview_health_status]

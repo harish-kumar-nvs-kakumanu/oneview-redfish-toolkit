@@ -13,7 +13,7 @@
 # WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 # License for the specific language governing permissions and limitations
 # under the License.
-
+import collections
 from oneview_redfish_toolkit.api.resource_block import ResourceBlock
 
 STATE_TO_STATUS_MAPPING = {
@@ -52,18 +52,36 @@ class ServerHardwareResourceBlock(ResourceBlock):
 
         self.redfish["CompositionStatus"]["SharingCapable"] = False
         self.redfish["CompositionStatus"]["CompositionState"] = \
+<<<<<<< Updated upstream
             self._get_composition_state()
+=======
+            status_mapping.get_redfish_state(
+                self.server_hardware["state"],
+                status_mapping.COMPOSITION_STATE_MAPPING
+            )
+        self.redfish["Status"] = collections.OrderedDict()
+        self.redfish["Status"]["State"] = \
+            status_mapping.get_redfish_state(
+                self.server_hardware["state"],
+            status_mapping.COMPUTER_SYSTEM_STATE_MAPPING
+            )
+        self.redfish["Status"]["Health"] = \
+            status_mapping.get_redfish_health_status(self.server_hardware["status"])
+>>>>>>> Stashed changes
 
         self._fill_computer_system()
         self._fill_links()
 
         self._validate()
 
+<<<<<<< Updated upstream
     def _get_composition_state(self):
         sh_state = self.server_hardware["state"]
 
         return STATE_TO_STATUS_MAPPING.get(sh_state, None)
 
+=======
+>>>>>>> Stashed changes
     def _fill_computer_system(self):
         self.redfish["ComputerSystems"] = list()
 

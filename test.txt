@@ -1,0 +1,258 @@
+============================= test session starts ==============================
+platform linux -- Python 3.5.3, pytest-3.6.3, py-1.5.4, pluggy-0.6.0
+rootdir: /hdd/Karoline/workspace/dev/oneview-redfish-toolkit, inifile:
+collected 328 items
+
+oneview_redfish_toolkit/tests/test_authentication.py .                   [  0%]
+oneview_redfish_toolkit/tests/test_config.py ........                    [  2%]
+oneview_redfish_toolkit/tests/test_connection.py ...                     [  3%]
+oneview_redfish_toolkit/tests/test_event_dispatcher.py ...               [  4%]
+oneview_redfish_toolkit/tests/test_util.py .....                         [  6%]
+oneview_redfish_toolkit/tests/api/test_blade_chassis.py ..               [  6%]
+oneview_redfish_toolkit/tests/api/test_blade_manager.py ..               [  7%]
+oneview_redfish_toolkit/tests/api/test_capabilities_object.py ..         [  7%]
+oneview_redfish_toolkit/tests/api/test_chassis_collection.py ..          [  8%]
+oneview_redfish_toolkit/tests/api/test_composition_service.py ..         [  9%]
+oneview_redfish_toolkit/tests/api/test_computer_system.py .              [  9%]
+oneview_redfish_toolkit/tests/api/test_computer_system_collection.py ..  [ 10%]
+oneview_redfish_toolkit/tests/api/test_enclosure_chassis.py ..           [ 10%]
+oneview_redfish_toolkit/tests/api/test_enclosure_manager.py ..           [ 11%]
+oneview_redfish_toolkit/tests/api/test_ethernet_interface.py ..          [ 11%]
+oneview_redfish_toolkit/tests/api/test_ethernet_interface_collection.py . [ 12%]
+                                                                         [ 12%]
+oneview_redfish_toolkit/tests/api/test_event.py ..                       [ 12%]
+oneview_redfish_toolkit/tests/api/test_event_service.py ..               [ 13%]
+oneview_redfish_toolkit/tests/api/test_manager_collection.py ..          [ 14%]
+oneview_redfish_toolkit/tests/api/test_metadata.py ..                    [ 14%]
+oneview_redfish_toolkit/tests/api/test_network_adapter.py ..             [ 15%]
+oneview_redfish_toolkit/tests/api/test_network_adapter_collection.py ..  [ 15%]
+oneview_redfish_toolkit/tests/api/test_network_device_function.py ...    [ 16%]
+oneview_redfish_toolkit/tests/api/test_network_device_function_collection.py . [ 17%]
+.                                                                        [ 17%]
+oneview_redfish_toolkit/tests/api/test_network_interface.py .            [ 17%]
+oneview_redfish_toolkit/tests/api/test_network_interface_collection.py . [ 17%]
+                                                                         [ 17%]
+oneview_redfish_toolkit/tests/api/test_network_port.py ...               [ 18%]
+oneview_redfish_toolkit/tests/api/test_network_port_collection.py ..     [ 19%]
+oneview_redfish_toolkit/tests/api/test_odata.py ..                       [ 20%]
+oneview_redfish_toolkit/tests/api/test_power_option.py ...               [ 21%]
+oneview_redfish_toolkit/tests/api/test_processor.py .                    [ 21%]
+oneview_redfish_toolkit/tests/api/test_processor_collection.py .         [ 21%]
+oneview_redfish_toolkit/tests/api/test_rack_chassis.py ..                [ 22%]
+oneview_redfish_toolkit/tests/api/test_redfish_error.py .....            [ 23%]
+oneview_redfish_toolkit/tests/api/test_redfish_json_validator.py ......  [ 25%]
+oneview_redfish_toolkit/tests/api/test_resource_block_collection.py ...  [ 26%]
+oneview_redfish_toolkit/tests/api/test_resource_block_computer_system.py . [ 26%]
+F                                                                        [ 27%]
+oneview_redfish_toolkit/tests/api/test_resource_block_ethernet_interface.py . [ 27%]
+.                                                                        [ 27%]
+oneview_redfish_toolkit/tests/api/test_scmb.py ....                      [ 28%]
+oneview_redfish_toolkit/tests/api/test_server_hardware_resource_block.py . [ 29%]
+F                                                                        [ 29%]
+oneview_redfish_toolkit/tests/api/test_server_profile_template_resource_block.py . [ 29%]
+.                                                                        [ 30%]
+oneview_redfish_toolkit/tests/api/test_service_root.py ..                [ 30%]
+oneview_redfish_toolkit/tests/api/test_session.py ..                     [ 31%]
+oneview_redfish_toolkit/tests/api/test_status_mapping.py .               [ 31%]
+oneview_redfish_toolkit/tests/api/test_storage.py .                      [ 32%]
+oneview_redfish_toolkit/tests/api/test_storage_collection.py .           [ 32%]
+oneview_redfish_toolkit/tests/api/test_storage_composition_details.py .  [ 32%]
+oneview_redfish_toolkit/tests/api/test_storage_drive_composed_details.py . [ 32%]
+                                                                         [ 32%]
+oneview_redfish_toolkit/tests/api/test_storage_drive_composition_details.py . [ 33%]
+                                                                         [ 33%]
+oneview_redfish_toolkit/tests/api/test_storage_resource_block.py ..      [ 33%]
+oneview_redfish_toolkit/tests/api/test_subscription.py ..                [ 34%]
+oneview_redfish_toolkit/tests/api/test_subscription_collection.py ..     [ 35%]
+oneview_redfish_toolkit/tests/api/test_thermal.py ......                 [ 36%]
+oneview_redfish_toolkit/tests/api/test_vlan_network_interface.py ..      [ 37%]
+oneview_redfish_toolkit/tests/api/test_vlan_network_interface_collection.py . [ 37%]
+.                                                                        [ 38%]
+oneview_redfish_toolkit/tests/api/test_zone.py ....                      [ 39%]
+oneview_redfish_toolkit/tests/api/test_zone_collection.py .              [ 39%]
+oneview_redfish_toolkit/tests/blueprints/test_chassis.py ............... [ 44%]
+..                                                                       [ 44%]
+oneview_redfish_toolkit/tests/blueprints/test_chassis_collection.py .... [ 46%]
+.                                                                        [ 46%]
+oneview_redfish_toolkit/tests/blueprints/test_composition_service.py ..  [ 46%]
+oneview_redfish_toolkit/tests/blueprints/test_computer_system.py ....... [ 49%]
+..............                                                           [ 53%]
+oneview_redfish_toolkit/tests/blueprints/test_computer_system_collection.py . [ 53%]
+..                                                                       [ 54%]
+oneview_redfish_toolkit/tests/blueprints/test_create_computer_system.py . [ 54%]
+.........                                                                [ 57%]
+oneview_redfish_toolkit/tests/blueprints/test_ethernet_interface.py .... [ 58%]
+                                                                         [ 58%]
+oneview_redfish_toolkit/tests/blueprints/test_ethernet_interface_collection.py . [ 58%]
+.                                                                        [ 59%]
+oneview_redfish_toolkit/tests/blueprints/test_event_service.py .....     [ 60%]
+oneview_redfish_toolkit/tests/blueprints/test_manager.py ......          [ 62%]
+oneview_redfish_toolkit/tests/blueprints/test_manager_collection.py .... [ 63%]
+                                                                         [ 63%]
+oneview_redfish_toolkit/tests/blueprints/test_metadata.py .              [ 64%]
+oneview_redfish_toolkit/tests/blueprints/test_network_adapter.py ....    [ 65%]
+oneview_redfish_toolkit/tests/blueprints/test_network_adapter_collection.py . [ 65%]
+..                                                                       [ 66%]
+oneview_redfish_toolkit/tests/blueprints/test_network_device_function.py . [ 66%]
+...                                                                      [ 67%]
+oneview_redfish_toolkit/tests/blueprints/test_network_device_function_collection.py . [ 67%]
+..                                                                       [ 68%]
+oneview_redfish_toolkit/tests/blueprints/test_network_interface.py ..... [ 69%]
+                                                                         [ 69%]
+oneview_redfish_toolkit/tests/blueprints/test_network_interface_collection.py . [ 70%]
+...                                                                      [ 71%]
+oneview_redfish_toolkit/tests/blueprints/test_network_port.py .....      [ 72%]
+oneview_redfish_toolkit/tests/blueprints/test_network_port_collection.py . [ 72%]
+...                                                                      [ 73%]
+oneview_redfish_toolkit/tests/blueprints/test_odata.py .                 [ 74%]
+oneview_redfish_toolkit/tests/blueprints/test_processor.py ...           [ 75%]
+oneview_redfish_toolkit/tests/blueprints/test_processor_collection.py .. [ 75%]
+                                                                         [ 75%]
+oneview_redfish_toolkit/tests/blueprints/test_redfish_base.py ..         [ 76%]
+oneview_redfish_toolkit/tests/blueprints/test_resource_block.py F.....F. [ 78%]
+..                                                                       [ 79%]
+oneview_redfish_toolkit/tests/blueprints/test_resource_block_collection.py . [ 79%]
+.                                                                        [ 79%]
+oneview_redfish_toolkit/tests/blueprints/test_service_root.py ...        [ 80%]
+oneview_redfish_toolkit/tests/blueprints/test_session.py ....            [ 82%]
+oneview_redfish_toolkit/tests/blueprints/test_storage.py ...........     [ 85%]
+oneview_redfish_toolkit/tests/blueprints/test_storage_collection.py ...  [ 86%]
+oneview_redfish_toolkit/tests/blueprints/test_storage_composition_details.py . [ 86%]
+....                                                                     [ 87%]
+oneview_redfish_toolkit/tests/blueprints/test_subscription.py .......... [ 90%]
+..                                                                       [ 91%]
+oneview_redfish_toolkit/tests/blueprints/test_subscription_collection.py . [ 91%]
+                                                                         [ 91%]
+oneview_redfish_toolkit/tests/blueprints/test_thermal.py .....           [ 93%]
+oneview_redfish_toolkit/tests/blueprints/test_vlan_network_interface.py . [ 93%]
+.............                                                            [ 97%]
+oneview_redfish_toolkit/tests/blueprints/test_zone.py .....              [ 99%]
+oneview_redfish_toolkit/tests/blueprints/test_zone_collection.py ...     [100%]
+
+=================================== FAILURES ===================================
+________________ TestResourceBlockComputerSystem.test_serialize ________________
+
+self = <oneview_redfish_toolkit.tests.api.test_resource_block_computer_system.TestResourceBlockComputerSystem testMethod=test_serialize>
+
+    def test_serialize(self):
+        # Tests the serialize function result against known result
+        try:
+            computer_system = ResourceBlockComputerSystem(self.server_hardware)
+        except Exception as e:
+            self.fail(
+                "Failed to instantiate ResourceBlockComputerSystem class."
+                " Error: {}".format(e))
+        try:
+            result = json.loads(computer_system.serialize())
+        except Exception as e:
+            self.fail("Failed to serialize. Error: {}".format(e))
+    
+>       self.assertEqualMockup(self.computer_system_mockup, result)
+
+oneview_redfish_toolkit/tests/api/test_resource_block_computer_system.py:67: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+oneview_redfish_toolkit/tests/base_test.py:49: in assertEqualMockup
+    super(BaseTest, self).assertEqual(first, second, msg)
+E   AssertionError: {'Lin[662 chars]B': 4}, 'SystemType': 'Physical', 'Id': '30303[247 chars]'On'} != {'Lin[662 chars]B': 4.0}, 'SystemType': 'Physical', 'Id': '303[244 chars]'On'}
+E   Diff is 1290 characters long. Set self.maxDiff to None to see it.
+________________ TestServerHardwareResourceBlock.test_serialize ________________
+
+self = <oneview_redfish_toolkit.tests.api.test_server_hardware_resource_block.TestServerHardwareResourceBlock testMethod=test_serialize>
+
+    def test_serialize(self):
+        # Tests the serialize function result against known result
+        try:
+            resource_block = ServerHardwareResourceBlock(
+                '30303437-3034-4D32-3230-313133364752',
+                self.server_hardware,
+                self.server_profile_templates)
+        except Exception as e:
+            self.fail(
+                "Failed to instantiate ServerHardwareResourceBlock class."
+                " Error: {}".format(e))
+        try:
+            result = json.loads(resource_block.serialize())
+        except Exception as e:
+            self.fail("Failed to serialize. Error: {}".format(e))
+    
+>       self.assertEqualMockup(self.resource_block_mockup, result)
+
+oneview_redfish_toolkit/tests/api/test_server_hardware_resource_block.py:80: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+oneview_redfish_toolkit/tests/base_test.py:49: in assertEqualMockup
+    super(BaseTest, self).assertEqual(first, second, msg)
+E   AssertionError: {'Lin[764 chars]5', 'CompositionStatus': {'CompositionState': [103 chars]ock'} != {'Lin[764 chars]5', 'Status': {'State': 'Enabled', 'Health': '[151 chars]ock'}
+E   Diff is 1184 characters long. Set self.maxDiff to None to see it.
+__________________ TestResourceBlock.test_get_computer_system __________________
+
+self = <oneview_redfish_toolkit.tests.blueprints.test_resource_block.TestResourceBlock testMethod=test_get_computer_system>
+g = <MagicMock name='g' id='140628078949152'>
+
+    @mock.patch.object(resource_block, 'g')
+    def test_get_computer_system(self, g):
+        with open(
+            'oneview_redfish_toolkit/mockups/redfish'
+            '/ResourceBlockComputerSystem.json'
+        ) as f:
+            expected_computer_system = json.load(f)
+    
+        g.oneview_client.server_hardware.get.return_value = \
+            self.server_hardware
+    
+        response = self.client.get(
+            "/redfish/v1/CompositionService/ResourceBlocks"
+            "/30303437-3034-4D32-3230-313133364752/Systems/1")
+    
+        result = json.loads(response.data.decode("utf-8"))
+    
+        self.assertEqual(status.HTTP_200_OK, response.status_code)
+        self.assertEqual("application/json", response.mimetype)
+>       self.assertEqualMockup(expected_computer_system, result)
+
+oneview_redfish_toolkit/tests/blueprints/test_resource_block.py:243: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+oneview_redfish_toolkit/tests/base_flask_test.py:103: in assertEqualMockup
+    super(BaseTest, self).assertEqual(first, second, msg)
+E   AssertionError: {'Lin[662 chars]B': 4}, 'SystemType': 'Physical', 'Id': '30303[247 chars]'On'} != {'Lin[662 chars]B': 4.0}, 'SystemType': 'Physical', 'Id': '303[244 chars]'On'}
+E   Diff is 1290 characters long. Set self.maxDiff to None to see it.
+__________ TestResourceBlock.test_get_server_hardware_resource_block ___________
+
+self = <oneview_redfish_toolkit.tests.blueprints.test_resource_block.TestResourceBlock testMethod=test_get_server_hardware_resource_block>
+g = <MagicMock name='g' id='140628078888776'>
+
+    @mock.patch.object(resource_block, 'g')
+    def test_get_server_hardware_resource_block(self, g):
+        with open(
+                'oneview_redfish_toolkit/mockups/redfish'
+                '/ServerHardwareResourceBlock.json'
+        ) as f:
+            expected_resource_block = json.load(f)
+    
+        with open(
+            'oneview_redfish_toolkit/mockups/oneview/'
+            'ServerProfileTemplates.json'
+        ) as f:
+            server_profile_templates = json.load(f)
+    
+        g.oneview_client.server_hardware.get.return_value = \
+            self.server_hardware
+        g.oneview_client.server_profile_templates.get_all.return_value = \
+            server_profile_templates
+    
+        response = self.client.get(
+            "/redfish/v1/CompositionService/ResourceBlocks"
+            "/30303437-3034-4D32-3230-313133364752")
+    
+        result = json.loads(response.data.decode("utf-8"))
+    
+        self.assertEqual(status.HTTP_200_OK, response.status_code)
+        self.assertEqual("application/json", response.mimetype)
+>       self.assertEqualMockup(expected_resource_block, result)
+
+oneview_redfish_toolkit/tests/blueprints/test_resource_block.py:187: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+oneview_redfish_toolkit/tests/base_flask_test.py:103: in assertEqualMockup
+    super(BaseTest, self).assertEqual(first, second, msg)
+E   AssertionError: {'Lin[764 chars]5', 'CompositionStatus': {'CompositionState': [103 chars]ock'} != {'Lin[764 chars]5', 'Status': {'State': 'Enabled', 'Health': '[151 chars]ock'}
+E   Diff is 1184 characters long. Set self.maxDiff to None to see it.
+==================== 4 failed, 324 passed in 26.29 seconds =====================
