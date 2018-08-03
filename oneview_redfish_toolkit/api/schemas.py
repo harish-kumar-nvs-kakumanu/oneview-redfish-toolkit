@@ -20,7 +20,7 @@ Dict of schemas version used by application.
 """
 
 SCHEMAS = {
-    "ServiceRoot": "ServiceRoot.v1_2_0.json",
+    "ServiceRoot": "ServiceRoot.v1_3_1.json",
     "ChassisCollection": "ChassisCollection.json",
     "Chassis": "Chassis.v1_7_0.json",
     "CollectionCapabilities": "CollectionCapabilities.v1_0_0.json",
@@ -32,9 +32,9 @@ SCHEMAS = {
     "Manager": "Manager.v1_4_0.json",
     "EthernetInterface": "EthernetInterface.v1_4_0.json",
     "EthernetInterfaceCollection": "EthernetInterfaceCollection.json",
-    "EventService": "EventService.v1_0_4.json",
-    "EventDestination": "EventDestination.v1_2_0.json",
-    "Event": "Event.v1_2_0.json",
+    "EventService": "EventService.v1_1_0.json",
+    "EventDestination": "EventDestination.v1_3_0.json",
+    "Event": "Event.v1_2_1.json",
     "Thermal": "Thermal.v1_4_0.json",
     "StorageCollection": "StorageCollection.json",
     "Storage": "Storage.v1_4_0.json",
@@ -42,7 +42,7 @@ SCHEMAS = {
     "NetworkInterfaceCollection": "NetworkInterfaceCollection.json",
     "NetworkPortCollection": "NetworkPortCollection.json",
     "NetworkDeviceFunctionCollection": "NetworkDeviceFunctionCollection.json",
-    "NetworkDeviceFunction": "NetworkDeviceFunction.v1_1_0.json",
+    "NetworkDeviceFunction": "NetworkDeviceFunction.v1_2_1.json",
     "NetworkInterface": "NetworkInterface.v1_1_0.json",
     "NetworkAdapterCollection": "NetworkAdapterCollection.json",
     "NetworkAdapter": "NetworkAdapter.v1_1_0.json",
