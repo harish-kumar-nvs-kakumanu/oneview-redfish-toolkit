@@ -53,9 +53,12 @@ class ResourceBlockComputerSystem(RedfishJsonValidator):
         self.redfish["SerialNumber"] = server_hardware["serialNumber"]
         self.redfish["Status"] = collections.OrderedDict()
         self.redfish["Status"]["State"] = \
-            status_mapping.get_redfish_state(server_hardware["status"])
+            status_mapping.get_redfish_state(
+                server_hardware["state"],
+                status_mapping.COMPUTER_SYSTEM_STATE_MAPPING
+            )
         self.redfish["Status"]["Health"] = \
-            status_mapping.get_redfish_health(server_hardware["status"])
+            status_mapping.get_redfish_health_status(server_hardware["status"])
 
         self.redfish["PowerState"] = server_hardware["powerState"]
         self.redfish["BiosVersion"] = server_hardware["romVersion"]
