@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright (2017) Hewlett Packard Enterprise Development LP
+# Copyright (2017-2018) Hewlett Packard Enterprise Development LP
 #
 # Licensed under the Apache License, Version 2.0 (the "License"); you may
 # not use this file except in compliance with the License. You may obtain
@@ -65,6 +65,9 @@ class NetworkAdapter(RedfishJsonValidator):
         self.redfish["Controllers"][0]["ControllerCapabilities"][
             "NetworkDeviceFunctionCount"] = virtual_port_count
 
+        # Removing Links property (since it is causing validation error)
+        # and this info is available in the NetworkPorts and
+        # NetworkDeviceFunctions links below
         # # Links property
         # self.redfish["Controllers"][0]["Links"] = collections.OrderedDict()
         # self.redfish["Controllers"][0]["Links"]["NetworkPorts"] = list()
