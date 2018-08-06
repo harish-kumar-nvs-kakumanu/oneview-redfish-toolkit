@@ -605,7 +605,7 @@ class TestComputerSystem(BaseFlaskTest):
         server_profile["localStorage"]["sasLogicalJBODs"].pop(0)
 
         for oneview_status, redfish_status in \
-                status_mapping.HEALTH_STATUS_MAPPING.items():
+                status_mapping.HEALTH_STATE_MAPPING.items():
             server_hardware["status"] = oneview_status
             expected_cs["Status"]["Health"] = redfish_status
 
@@ -634,8 +634,8 @@ class TestComputerSystem(BaseFlaskTest):
         server_profile = copy.deepcopy(self.server_profile)
         server_profile["localStorage"]["sasLogicalJBODs"].pop(0)
 
-        for oneview_status, redfish_status in \
-                status_mapping.SERVER_PROFILE_STATE_MAPPING.items():
+        for oneview_status, redfish_status in status_mapping.\
+                SERVER_PROFILE_STATE_TO_REDFISH_STATE_MAPPING.items():
 
             server_profile["state"] = oneview_status
             expected_cs["Status"]["State"] = redfish_status

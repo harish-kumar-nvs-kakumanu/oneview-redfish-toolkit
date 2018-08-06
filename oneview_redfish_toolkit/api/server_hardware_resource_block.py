@@ -52,21 +52,19 @@ class ServerHardwareResourceBlock(ResourceBlock):
         self.redfish["ResourceBlockType"] = ["ComputerSystem"]
 
         self.redfish["CompositionStatus"]["SharingCapable"] = False
+        composition_state, _ = status_mapping.get_redfish_status_struct(
+            self.server_hardware["state"], None,
+            status_mapping.COMPOSITION_STATE_MAPPING
+        )
         self.redfish["CompositionStatus"]["CompositionState"] = \
-            status_mapping.get_redfish_state(
-                self.server_hardware["state"],
-                status_mapping.COMPOSITION_STATE_MAPPING
-            )
+            composition_state
         self.redfish["Status"] = collections.OrderedDict()
-        self.redfish["Status"]["State"] = \
-            status_mapping.get_redfish_state(
-                self.server_hardware["state"],
-            status_mapping.COMPUTER_SYSTEM_STATE_MAPPING
-            )
-        self.redfish["Status"]["Health"] = \
-            status_mapping.get_redfish_health_status(
-                self.server_hardware["status"]
-            )
+        state, health = status_mapping.get_redfish_status_struct(
+            self.server_hardware["state"], self.server_hardware["status"],
+            status_mapping.SERVER_HARDWARE_STATE_TO_REDFISH_STATE_MAPPING
+        )
+        self.redfish["Status"]["State"] = state
+        self.redfish["Status"]["Health"] = health
 
         self._fill_computer_system()
         self._fill_links()

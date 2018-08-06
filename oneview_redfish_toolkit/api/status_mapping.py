@@ -37,7 +37,7 @@ STATUS_MAP = {
     }
 }
 
-HEALTH_STATUS_MAPPING = {
+HEALTH_STATE_MAPPING = {
     "Critical": "Critical",
     "OK": "OK",
     "Unknown": "Warning",
@@ -52,7 +52,7 @@ COMPOSITION_STATE_MAPPING = {
     "ProfileError": "Failed"
 }
 
-COMPUTER_SYSTEM_STATE_MAPPING = {
+SERVER_HARDWARE_STATE_TO_REDFISH_STATE_MAPPING = {
     "NoProfileApplied": "Enabled",
     "Monitored": "Enabled",
     "ProfileApplied": "Enabled",
@@ -69,7 +69,7 @@ COMPUTER_SYSTEM_STATE_MAPPING = {
     "Removed": "Disabled"
 }
 
-SERVER_PROFILE_STATE_MAPPING = {
+SERVER_PROFILE_STATE_TO_REDFISH_STATE_MAPPING = {
     "Normal": "Enabled",
     "Creating": "Updating",
     "Updating": "Updating",
@@ -80,22 +80,12 @@ SERVER_PROFILE_STATE_MAPPING = {
 }
 
 
-def get_redfish_status_struct(oneview_status):
+def get_redfish_status_struct(oneview_state, oneview_status,
+                              ov_to_redfish_map):
     """Gets corresponding Redfish Status struct containing
 
         State and Health properties
     """
-    state = STATUS_MAP[oneview_status]["State"]
-    health = STATUS_MAP[oneview_status]["Health"]
+    state = ov_to_redfish_map.get(oneview_state, None)
+    health = HEALTH_STATE_MAPPING.get(oneview_status, None)
     return state, health
-
-
-def get_redfish_state(oneview_state, ov_to_rf_map):
-    """Gets corresponding Redfish State"""
-    return ov_to_rf_map.get(oneview_state, None)
-
-
-def get_redfish_health_status(oneview_health_status):
-    """Gets corresponding Redfish Health"""
-
-    return HEALTH_STATUS_MAPPING[oneview_health_status]

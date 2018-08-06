@@ -187,8 +187,9 @@ class TestResourceBlock(BaseFlaskTest):
         server_hardware = copy.deepcopy(self.server_hardware)
         expected_rb = copy.deepcopy(self.expected_resource_block)
 
-        for oneview_state, redfish_state in \
-                status_mapping.COMPUTER_SYSTEM_STATE_MAPPING.items():
+        for oneview_state, redfish_state in status_mapping.\
+                SERVER_HARDWARE_STATE_TO_REDFISH_STATE_MAPPING.items():
+
             server_hardware["state"] = oneview_state
             expected_rb["Status"]["State"] = redfish_state
             expected_rb["CompositionStatus"]["CompositionState"] = \
@@ -216,7 +217,7 @@ class TestResourceBlock(BaseFlaskTest):
         expected_cs = copy.deepcopy(self.expected_resource_block)
 
         for oneview_status, redfish_status in \
-                status_mapping.HEALTH_STATUS_MAPPING.items():
+                status_mapping.HEALTH_STATE_MAPPING.items():
             server_hardware["status"] = oneview_status
             expected_cs["Status"]["Health"] = redfish_status
 

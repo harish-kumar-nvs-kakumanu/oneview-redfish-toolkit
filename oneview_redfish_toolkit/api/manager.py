@@ -47,10 +47,11 @@ class Manager(RedfishJsonValidator):
         self.redfish["Description"] = None
         self.redfish["FirmwareVersion"] = firmware_version
         state, health = status_mapping.get_redfish_status_struct(
-            oneview_resource["status"]
+            oneview_resource["status"], oneview_resource["status"],
+            status_mapping.STATUS_MAP
         )
         self.redfish["Status"] = collections.OrderedDict()
-        self.redfish["Status"]["State"] = state
+        self.redfish["Status"]["State"] = state["State"]
         self.redfish["Status"]["Health"] = health
         self.redfish["@odata.context"] = \
             "/redfish/v1/$metadata#Manager.Manager"
