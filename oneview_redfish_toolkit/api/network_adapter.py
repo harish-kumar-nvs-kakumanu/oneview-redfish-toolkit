@@ -74,7 +74,8 @@ class NetworkAdapter(RedfishJsonValidator):
         # # Adding NetworkPorts
         # for port in device_slot["physicalPorts"]:
         #     new_port = {
-        #         "@odata:id": "/redfish/v1/Chassis/" + server_hardware["uuid"] +
+        #         "@odata:id": "/redfish/v1/Chassis/" +
+        #         server_hardware["uuid"] +
         #         "/NetworkAdapters/" + device_id + "/NetworkPorts/" +
         #         str(port["portNumber"])}
         #     self.redfish["Controllers"][0]["Links"]["NetworkPorts"].\
