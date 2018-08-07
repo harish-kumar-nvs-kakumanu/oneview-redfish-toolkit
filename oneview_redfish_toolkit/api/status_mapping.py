@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright (2017) Hewlett Packard Enterprise Development LP
+# Copyright (2017-2018) Hewlett Packard Enterprise Development LP
 #
 # Licensed under the Apache License, Version 2.0 (the "License"); you may
 # not use this file except in compliance with the License. You may obtain
@@ -37,14 +37,7 @@ STATUS_MAP = {
     }
 }
 
-<<<<<<< Updated upstream
-
-def get_redfish_state(oneview_status):
-    """Gets corresponding Redfish State"""
-
-    return STATUS_MAP[oneview_status]["State"]
-=======
-HEALTH_STATUS_MAPPING = {
+HEALTH_STATE_MAPPING = {
     "Critical": "Critical",
     "OK": "OK",
     "Unknown": "Warning",
@@ -59,7 +52,7 @@ COMPOSITION_STATE_MAPPING = {
     "ProfileError": "Failed"
 }
 
-COMPUTER_SYSTEM_STATE_MAPPING = {
+SERVER_HARDWARE_STATE_TO_REDFISH_STATE_MAPPING = {
     "NoProfileApplied": "Enabled",
     "Monitored": "Enabled",
     "ProfileApplied": "Enabled",
@@ -76,7 +69,7 @@ COMPUTER_SYSTEM_STATE_MAPPING = {
     "Removed": "Disabled"
 }
 
-SERVER_PROFILE_STATE_MAPPING = {
+SERVER_PROFILE_STATE_TO_REDFISH_STATE_MAPPING = {
     "Normal": "Enabled",
     "Creating": "Updating",
     "Updating": "Updating",
@@ -87,24 +80,12 @@ SERVER_PROFILE_STATE_MAPPING = {
 }
 
 
-def get_redfish_status_struct(oneview_status):
-    state = STATUS_MAP[oneview_status]["State"]
-    health = STATUS_MAP[oneview_status]["Health"]
+def get_redfish_status_struct(oneview_state, oneview_status,
+                              ov_to_redfish_map):
+    """Gets corresponding Redfish Status struct containing
+
+        State and Health properties
+    """
+    state = ov_to_redfish_map.get(oneview_state, None)
+    health = HEALTH_STATE_MAPPING.get(oneview_status, None)
     return state, health
-
-def get_redfish_state(oneview_state, ov_to_rf_map):
-    """Gets corresponding Redfish State"""
-    try:
-        return ov_to_rf_map[oneview_state]
-    except KeyError as e:
-        logging.info("The key {} was not found inside "
-                     "{} map when trying to get a Oneview's status"
-                     .format(e.args[0], ov_to_rf_map))
-        return None
->>>>>>> Stashed changes
-
-
-def get_redfish_health_status(oneview_health_status):
-    """Gets corresponding Redfish Health"""
-
-    return HEALTH_STATUS_MAPPING[oneview_health_status]

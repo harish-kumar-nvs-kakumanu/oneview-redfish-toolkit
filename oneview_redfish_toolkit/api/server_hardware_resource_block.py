@@ -15,6 +15,7 @@
 # under the License.
 import collections
 from oneview_redfish_toolkit.api.resource_block import ResourceBlock
+import oneview_redfish_toolkit.api.status_mapping as status_mapping
 
 STATE_TO_STATUS_MAPPING = {
     "NoProfileApplied": "Unused",
@@ -51,37 +52,30 @@ class ServerHardwareResourceBlock(ResourceBlock):
         self.redfish["ResourceBlockType"] = ["ComputerSystem"]
 
         self.redfish["CompositionStatus"]["SharingCapable"] = False
+        composition_state, _ = status_mapping.get_redfish_status_struct(
+            self.server_hardware["state"], None,
+            status_mapping.COMPOSITION_STATE_MAPPING
+        )
         self.redfish["CompositionStatus"]["CompositionState"] = \
-<<<<<<< Updated upstream
-            self._get_composition_state()
-=======
-            status_mapping.get_redfish_state(
-                self.server_hardware["state"],
-                status_mapping.COMPOSITION_STATE_MAPPING
-            )
+            composition_state
         self.redfish["Status"] = collections.OrderedDict()
-        self.redfish["Status"]["State"] = \
-            status_mapping.get_redfish_state(
-                self.server_hardware["state"],
-            status_mapping.COMPUTER_SYSTEM_STATE_MAPPING
-            )
-        self.redfish["Status"]["Health"] = \
-            status_mapping.get_redfish_health_status(self.server_hardware["status"])
->>>>>>> Stashed changes
+        state, health = status_mapping.get_redfish_status_struct(
+            self.server_hardware["state"], self.server_hardware["status"],
+            status_mapping.SERVER_HARDWARE_STATE_TO_REDFISH_STATE_MAPPING
+        )
+        self.redfish["Status"]["State"] = state
+        self.redfish["Status"]["Health"] = health
 
         self._fill_computer_system()
         self._fill_links()
 
         self._validate()
 
-<<<<<<< Updated upstream
     def _get_composition_state(self):
         sh_state = self.server_hardware["state"]
 
         return STATE_TO_STATUS_MAPPING.get(sh_state, None)
 
-=======
->>>>>>> Stashed changes
     def _fill_computer_system(self):
         self.redfish["ComputerSystems"] = list()
 

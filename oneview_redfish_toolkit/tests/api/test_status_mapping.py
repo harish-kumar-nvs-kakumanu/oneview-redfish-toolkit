@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright (2017) Hewlett Packard Enterprise Development LP
+# Copyright (2017-2018) Hewlett Packard Enterprise Development LP
 #
 # Licensed under the Apache License, Version 2.0 (the "License"); you may
 # not use this file except in compliance with the License. You may obtain
@@ -36,7 +36,8 @@ class TestStatusMapping(unittest.TestCase):
 
         redfish_state, redfish_health = \
             status_mapping.get_redfish_status_struct(
-                server_hardware["status"]
+                server_hardware["state"], server_hardware["status"],
+                status_mapping.SERVER_HARDWARE_STATE_TO_REDFISH_STATE_MAPPING
             )
 
         self.assertEqual(redfish_state, "Enabled")

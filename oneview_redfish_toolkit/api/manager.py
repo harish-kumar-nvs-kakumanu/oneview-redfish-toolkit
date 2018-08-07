@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright (2017) Hewlett Packard Enterprise Development LP
+# Copyright (2017-2018) Hewlett Packard Enterprise Development LP
 #
 # Licensed under the Apache License, Version 2.0 (the "License"); you may
 # not use this file except in compliance with the License. You may obtain
@@ -46,10 +46,12 @@ class Manager(RedfishJsonValidator):
         self.redfish["Id"] = oneview_resource['uuid']
         self.redfish["Description"] = None
         self.redfish["FirmwareVersion"] = firmware_version
-        state, health = \
-            status_mapping.get_redfish_status_struct(oneview_resource["status"])
+        state, health = status_mapping.get_redfish_status_struct(
+            oneview_resource["status"], oneview_resource["status"],
+            status_mapping.STATUS_MAP
+        )
         self.redfish["Status"] = collections.OrderedDict()
-        self.redfish["Status"]["State"] = state
+        self.redfish["Status"]["State"] = state["State"]
         self.redfish["Status"]["Health"] = health
         self.redfish["@odata.context"] = \
             "/redfish/v1/$metadata#Manager.Manager"

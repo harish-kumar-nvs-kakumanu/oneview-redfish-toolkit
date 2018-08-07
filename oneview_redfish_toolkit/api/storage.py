@@ -70,11 +70,10 @@ class Storage(RedfishJsonValidator):
         self.redfish["StorageControllers@odata.count"] = 1
         self.redfish["Id"] = "1"
         self.redfish["Name"] = "Storage Controller"
-        state, health = \
-            status_mapping.get_redfish_status_struct("OK")
         self.redfish["Status"] = collections.OrderedDict()
-        self.redfish["Status"]["State"] = state
-        self.redfish["Status"]["Health"] = health
+        ok_struct = status_mapping.STATUS_MAP.get("OK")
+        self.redfish["Status"]["State"] = ok_struct["State"]
+        self.redfish["Status"]["Health"] = ok_struct["Health"]
         self.redfish["StorageControllers"] = list()
 
         # adapter storage capabilities (if any)

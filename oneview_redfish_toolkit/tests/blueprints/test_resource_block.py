@@ -65,6 +65,12 @@ class TestResourceBlock(BaseFlaskTest):
         ) as f:
             self.server_profile_templates = json.load(f)
 
+        with open(
+                'oneview_redfish_toolkit/mockups/redfish'
+                '/ServerHardwareResourceBlock.json'
+        ) as f:
+            self.expected_resource_block = json.load(f)
+
         self.resource_not_found = HPOneViewException({
             "errorCode": "RESOURCE_NOT_FOUND",
             "message": "Any resource not found message"
@@ -160,11 +166,6 @@ class TestResourceBlock(BaseFlaskTest):
 
     @mock.patch.object(resource_block, 'g')
     def test_get_server_hardware_resource_block(self, g):
-        with open(
-                'oneview_redfish_toolkit/mockups/redfish'
-                '/ServerHardwareResourceBlock.json'
-        ) as f:
-            expected_resource_block = json.load(f)
 
         g.oneview_client.server_hardware.get.return_value = \
             self.server_hardware
@@ -179,24 +180,24 @@ class TestResourceBlock(BaseFlaskTest):
 
         self.assertEqual(status.HTTP_200_OK, response.status_code)
         self.assertEqual("application/json", response.mimetype)
-        self.assertEqualMockup(expected_resource_block, result)
+        self.assertEqualMockup(self.expected_resource_block, result)
 
     @mock.patch.object(resource_block, 'g')
     def test_all_server_hardware_resouce_block_states(self, g):
-        with open(
-                'oneview_redfish_toolkit/mockups/redfish'
-                '/ServerHardwareResourceBlock.json'
-        ) as f:
-            expected_resource_block = json.load(f)
+        server_hardware = copy.deepcopy(self.server_hardware)
+        expected_rb = copy.deepcopy(self.expected_resource_block)
 
-        for state in status_mapping.COMPUTER_SYSTEM_STATE_MAPPING:
-            server_hardware = copy.deepcopy(self.server_hardware)
-            expected_rb = copy.deepcopy(expected_resource_block)
-            server_hardware["state"] = state
-            expected_rb["Status"]["State"] = state
+        for oneview_state, redfish_state in status_mapping.\
+                SERVER_HARDWARE_STATE_TO_REDFISH_STATE_MAPPING.items():
+
+            server_hardware["state"] = oneview_state
+            expected_rb["Status"]["State"] = redfish_state
+            expected_rb["CompositionStatus"]["CompositionState"] = \
+                status_mapping.COMPOSITION_STATE_MAPPING.get(
+                    oneview_state, None)
 
             g.oneview_client.server_hardware.get.return_value = \
-                self.server_hardware
+                server_hardware
             g.oneview_client.server_profile_templates.get_all.return_value = \
                 self.server_profile_templates
 
@@ -208,24 +209,20 @@ class TestResourceBlock(BaseFlaskTest):
 
             self.assertEqual(status.HTTP_200_OK, response.status_code)
             self.assertEqual("application/json", response.mimetype)
-            self.assertEqualMockup(expected_resource_block, result)
+            self.assertEqualMockup(expected_rb, result)
 
     @mock.patch.object(resource_block, 'g')
     def test_all_server_hardware_resouce_block_health(self, g):
-        with open(
-                'oneview_redfish_toolkit/mockups/redfish'
-                '/ServerHardwareResourceBlock.json'
-        ) as f:
-            expected_resource_block = json.load(f)
+        server_hardware = copy.deepcopy(self.server_hardware)
+        expected_cs = copy.deepcopy(self.expected_resource_block)
 
-        for health_status in status_mapping.HEALTH_STATUS_MAPPING:
-            server_hardware = copy.deepcopy(self.server_hardware)
-            expected_rb = copy.deepcopy(expected_resource_block)
-            server_hardware["status"] = health_status
-            expected_rb["Status"]["Health"] = health_status
+        for oneview_status, redfish_status in \
+                status_mapping.HEALTH_STATE_MAPPING.items():
+            server_hardware["status"] = oneview_status
+            expected_cs["Status"]["Health"] = redfish_status
 
             g.oneview_client.server_hardware.get.return_value = \
-                self.server_hardware
+                server_hardware
             g.oneview_client.server_profile_templates.get_all.return_value = \
                 self.server_profile_templates
 
@@ -237,7 +234,7 @@ class TestResourceBlock(BaseFlaskTest):
 
             self.assertEqual(status.HTTP_200_OK, response.status_code)
             self.assertEqual("application/json", response.mimetype)
-            self.assertEqualMockup(expected_resource_block, result)
+            self.assertEqualMockup(expected_cs, result)
 
     @mock.patch.object(resource_block, 'g')
     def test_get_spt_resource_block(self, g):
