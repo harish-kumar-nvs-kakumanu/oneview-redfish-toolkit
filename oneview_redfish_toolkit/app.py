@@ -189,7 +189,7 @@ def main(config_file_path, logging_config_file_path):
                     "x-auth-token header not found")
             else:
                 try:
-                    #authentication.check_authentication(x_auth_token)
+                    authentication.check_authentication(x_auth_token)
 
                     # TODO(@victorhugorodrigues): Remove this single OneView
                     # connection after implement support for multiple OneViews

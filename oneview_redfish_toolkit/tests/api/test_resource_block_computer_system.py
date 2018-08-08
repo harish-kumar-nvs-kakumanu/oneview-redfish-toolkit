@@ -63,5 +63,5 @@ class TestResourceBlockComputerSystem(BaseTest):
             result = json.loads(computer_system.serialize())
         except Exception as e:
             self.fail("Failed to serialize. Error: {}".format(e))
-        import pdb; pdb.set_trace()
+
         self.assertEqualMockup(self.computer_system_mockup, result)
