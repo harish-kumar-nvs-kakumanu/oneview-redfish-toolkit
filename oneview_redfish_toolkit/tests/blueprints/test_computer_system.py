@@ -601,12 +601,46 @@ class TestComputerSystem(BaseFlaskTest):
     def test_all_computer_system_health_status(self, g):
         server_profile = copy.deepcopy(self.server_profile)
         server_profile["localStorage"]["sasLogicalJBODs"].pop(0)
+        server_hardware = copy.deepcopy(self.server_hardware)
+        expected_cs = copy.deepcopy(self.computer_system_mockup)
 
-        for health_status in status_mapping.HEALTH_STATUS_MAPPING:
-            server_hardware = copy.deepcopy(self.server_hardware)
-            expected_cs = copy.deepcopy(self.computer_system_mockup)
-            server_hardware["status"] = health_status
-            expected_cs["Status"]["Health"] = health_status
+        for oneview_status, redfish_health_status in \
+                status_mapping.HEALTH_STATE_MAPPING.items():
+
+            server_hardware["status"] = oneview_status
+            expected_cs["Status"]["Health"] = redfish_health_status
+
+            g.oneview_client.server_profiles.get.return_value = \
+                server_profile
+            g.oneview_client.server_hardware.get.return_value = \
+                server_hardware
+            g.oneview_client.server_hardware_types.get.return_value = \
+                self.server_hardware_types
+            g.oneview_client.sas_logical_jbods.get_drives.return_value = \
+                [self.drives[4]]
+
+            response = self.client.get(
+                "/redfish/v1/Systems/b425802b-a6a5-4941-8885-aab68dfa2ee2"
+            )
+
+            result = json.loads(response.data.decode("utf-8"))
+
+            self.assertEqual(status.HTTP_200_OK, response.status_code)
+            self.assertEqual("application/json", response.mimetype)
+            self.assertEqualMockup(expected_cs, result)
+
+    @mock.patch.object(computer_system, 'g')
+    def test_all_computer_system_state(self, g):
+        server_profile = copy.deepcopy(self.server_profile)
+        server_profile["localStorage"]["sasLogicalJBODs"].pop(0)
+        server_hardware = copy.deepcopy(self.server_hardware)
+        expected_cs = copy.deepcopy(self.computer_system_mockup)
+
+        for oneview_state, redfish_state in status_mapping.\
+                SERVER_PROFILE_STATE_TO_REDFISH_STATE_MAPPING.items():
+
+            server_profile["state"] = oneview_state
+            expected_cs["Status"]["State"] = redfish_state
 
             g.oneview_client.server_profiles.get.return_value = \
                 server_profile

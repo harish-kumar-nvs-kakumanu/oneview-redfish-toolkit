@@ -189,11 +189,12 @@ class TestResourceBlock(BaseFlaskTest):
         ) as f:
             expected_resource_block = json.load(f)
 
-        for state in status_mapping.COMPUTER_SYSTEM_STATE_MAPPING:
+        for oneview_state, redfish_state in status_mapping.\
+                SERVER_HARDWARE_STATE_TO_REDFISH_STATE_MAPPING.items():
             server_hardware = copy.deepcopy(self.server_hardware)
             expected_rb = copy.deepcopy(expected_resource_block)
-            server_hardware["state"] = state
-            expected_rb["Status"]["State"] = state
+            server_hardware["state"] = oneview_state
+            expected_rb["Status"]["State"] = redfish_state
 
             g.oneview_client.server_hardware.get.return_value = \
                 self.server_hardware
@@ -218,7 +219,7 @@ class TestResourceBlock(BaseFlaskTest):
         ) as f:
             expected_resource_block = json.load(f)
 
-        for health_status in status_mapping.HEALTH_STATUS_MAPPING:
+        for health_status in status_mapping.HEALTH_STATE_MAPPING:
             server_hardware = copy.deepcopy(self.server_hardware)
             expected_rb = copy.deepcopy(expected_resource_block)
             server_hardware["status"] = health_status
