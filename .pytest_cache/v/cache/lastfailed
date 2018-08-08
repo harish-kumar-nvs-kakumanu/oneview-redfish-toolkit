@@ -1,4 +1,0 @@
-{
-  "oneview_redfish_toolkit/tests/blueprints/test_computer_system.py::TestComputerSystem::test_all_computer_system_health_status": true,
-  "oneview_redfish_toolkit/tests/blueprints/test_resource_block.py::TestResourceBlock::test_all_server_hardware_resouce_block_states": true
-}
