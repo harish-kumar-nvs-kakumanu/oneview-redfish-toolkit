@@ -52,10 +52,8 @@ class ResourceBlockComputerSystem(RedfishJsonValidator):
         self.redfish["Model"] = server_hardware["model"]
         self.redfish["SerialNumber"] = server_hardware["serialNumber"]
         self.redfish["Status"] = collections.OrderedDict()
-        state, health = status_mapping.get_redfish_status_struct(
-            server_hardware["state"], server_hardware["status"],
-            status_mapping.SERVER_HARDWARE_STATE_TO_REDFISH_STATE_MAPPING
-        )
+        state, health = status_mapping.\
+            get_redfish_server_hardware_status_struct(server_hardware)
         self.redfish["Status"]["State"] = state
         self.redfish["Status"]["Health"] = health
         self.redfish["PowerState"] = server_hardware["powerState"]

@@ -80,12 +80,22 @@ SERVER_PROFILE_STATE_TO_REDFISH_STATE_MAPPING = {
 }
 
 
-def get_redfish_status_struct(oneview_state, oneview_status,
-                              ov_to_redfish_map):
-    """Gets corresponding Redfish Status struct containing
+def get_redfish_server_hardware_status_struct(resource):
+    sh_state = SERVER_HARDWARE_STATE_TO_REDFISH_STATE_MAPPING.get(
+        resource["state"])
+    health_status = HEALTH_STATE_MAPPING.get(resource["status"])
 
-        State and Health properties
-    """
-    state = ov_to_redfish_map.get(oneview_state, None)
-    health = HEALTH_STATE_MAPPING.get(oneview_status, None)
-    return state, health
+    return sh_state, health_status
+
+
+def get_redfish_server_profile_state(resource):
+    sp_state = SERVER_PROFILE_STATE_TO_REDFISH_STATE_MAPPING.get(
+        resource["state"])
+    health_status = HEALTH_STATE_MAPPING.get(resource["status"])
+    return sp_state, health_status
+
+
+def get_redfish_composition_state(resource):
+    composition_state = COMPOSITION_STATE_MAPPING.get(
+        resource["state"], None)
+    return composition_state

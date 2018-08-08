@@ -50,10 +50,8 @@ class Chassis(RedfishJsonValidator):
         self.redfish["SerialNumber"] = oneview_resource["serialNumber"]
         self.redfish["PartNumber"] = oneview_resource["partNumber"]
         self.redfish["Status"] = collections.OrderedDict()
-        state, health = status_mapping.get_redfish_status_struct(
-            oneview_resource["state"], oneview_resource["status"],
-            status_mapping.SERVER_HARDWARE_STATE_TO_REDFISH_STATE_MAPPING
-        )
+        state, health = status_mapping.\
+            get_redfish_server_hardware_status_struct(oneview_resource)
         self.redfish["Status"]["State"] = state
         self.redfish["Status"]["Health"] = health
         self.redfish["Links"] = collections.OrderedDict()

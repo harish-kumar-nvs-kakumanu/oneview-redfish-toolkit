@@ -70,10 +70,8 @@ class ComputerSystem(RedfishJsonValidator):
             status_mapping.HEALTH_STATE_MAPPING.get(base_resource["status"]),
             status_mapping.HEALTH_STATE_MAPPING.get(server_hardware["status"])
         )
-        state, _ = status_mapping.get_redfish_status_struct(
-            base_resource["state"], None,
-            status_mapping.SERVER_PROFILE_STATE_TO_REDFISH_STATE_MAPPING
-        )
+        state, _ = status_mapping.\
+            get_redfish_server_profile_state(base_resource)
         self.redfish["Status"]["State"] = state
         self.redfish["Status"]["Health"] = health
         self.redfish["PowerState"] = server_hardware["powerState"]

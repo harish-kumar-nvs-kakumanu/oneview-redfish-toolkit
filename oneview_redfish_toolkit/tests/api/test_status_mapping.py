@@ -34,11 +34,8 @@ class TestStatusMapping(unittest.TestCase):
         ) as f:
             server_hardware = json.load(f)
 
-        redfish_state, redfish_health = \
-            status_mapping.get_redfish_status_struct(
-                server_hardware["state"], server_hardware["status"],
-                status_mapping.SERVER_HARDWARE_STATE_TO_REDFISH_STATE_MAPPING
-            )
+        redfish_state, redfish_health = status_mapping.\
+            get_redfish_server_hardware_status_struct(server_hardware)
 
         self.assertEqual(redfish_state, "Enabled")
         self.assertEqual(redfish_health, "OK")

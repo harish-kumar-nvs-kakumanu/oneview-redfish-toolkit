@@ -274,8 +274,8 @@ class TestResourceBlock(BaseFlaskTest):
     @mock.patch.object(resource_block, 'g')
     def test_get_computer_system(self, g):
         with open(
-                'oneview_redfish_toolkit/mockups/redfish'
-                '/ResourceBlockComputerSystem.json'
+            'oneview_redfish_toolkit/mockups/redfish'
+            '/ResourceBlockComputerSystem.json'
         ) as f:
             expected_computer_system = json.load(f)
 

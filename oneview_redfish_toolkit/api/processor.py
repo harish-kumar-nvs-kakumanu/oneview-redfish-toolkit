@@ -45,12 +45,9 @@ class Processor(RedfishJsonValidator):
         self.redfish["@odata.type"] = self.get_odata_type()
         self.redfish["Id"] = processor_id
         self.redfish["Name"] = "Processor " + processor_id
-        state, health = \
-            status_mapping.get_redfish_status_struct(
-                server_hardware["state"], server_hardware["status"],
-                status_mapping.SERVER_HARDWARE_STATE_TO_REDFISH_STATE_MAPPING
-            )
         self.redfish["Status"] = dict()
+        state, health = status_mapping.\
+            get_redfish_server_hardware_status_struct(server_hardware)
         self.redfish["Status"]["State"] = state
         self.redfish["Status"]["Health"] = health
         self.redfish["ProcessorType"] = "CPU"
