@@ -14,11 +14,8 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
-import collections
-
 from oneview_redfish_toolkit.api.redfish_json_validator \
     import RedfishJsonValidator
-import oneview_redfish_toolkit.api.status_mapping as status_mapping
 
 
 class Manager(RedfishJsonValidator):
@@ -46,11 +43,14 @@ class Manager(RedfishJsonValidator):
         self.redfish["Id"] = oneview_resource['uuid']
         self.redfish["Description"] = None
         self.redfish["FirmwareVersion"] = firmware_version
-        self.redfish["Status"] = collections.OrderedDict()
-        state, health = status_mapping.\
-            get_redfish_server_hardware_status_struct(oneview_resource)
-        self.redfish["Status"]["State"] = state
-        self.redfish["Status"]["Health"] = health
+
+        # TODO(victorhugorodrigues): update state and health properties
+        # self.redfish["Status"] = collections.OrderedDict()
+        # state, _ = status_mapping.\
+        #     get_redfish_server_hardware_status_struct(oneview_resource)
+        # self.redfish["Status"]["State"] = state
+        # self.redfish["Status"]["Health"] = health
+
         self.redfish["@odata.context"] = \
             "/redfish/v1/$metadata#Manager.Manager"
         self.redfish["@odata.id"] = \
