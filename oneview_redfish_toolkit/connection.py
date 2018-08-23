@@ -22,6 +22,7 @@ import ssl
 import time
 
 # 3rd party libs
+from flask import g
 from flask import request
 from flask_api import status
 from hpOneView.oneview_client import OneViewClient
@@ -54,7 +55,12 @@ def get_oneview_client(ip_oneview, token=None,
                                           token=token)
 
     try:
+        start_conn = time.time()
         oneview_client = OneViewClient(ov_config)
+        elapsed = time.time() - start_conn
+        g.sum_open_conn += elapsed
+        logging.info('OPEN CONN: \t {}'.format(elapsed))
+
         return oneview_client
     except Exception:
         logging.exception("Failed to recover session based connection")

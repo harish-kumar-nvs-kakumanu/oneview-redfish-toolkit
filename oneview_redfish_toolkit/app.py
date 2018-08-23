@@ -19,6 +19,7 @@ import argparse
 import ipaddress
 import logging
 import os
+import time
 from threading import Thread
 
 # 3rd party libs
@@ -169,6 +170,11 @@ def main(config_file_path, logging_config_file_path):
 
     @app.before_request
     def check_authentication():
+        g.request_start_time = time.time()
+        g.sum_ov_req = 0
+        g.sum_open_conn = 0
+        g.sum_multiple = 0
+
         # If authenticating do not check for anything
         if request.path == "/redfish/v1/SessionService/Sessions" and \
             request.method == "POST":
@@ -199,6 +205,12 @@ def main(config_file_path, logging_config_file_path):
 
     @app.after_request
     def set_odata_version_header(response):
+        logging.info("--- TOTAL R: {} seconds ---".format(time.time() - g.request_start_time))
+        logging.info("--- SUM OVR: {} seconds ---".format(g.sum_ov_req))
+        logging.info("--- SUM CON: {} seconds ---".format(g.sum_open_conn))
+        logging.info("--- SUM MUL: {} seconds ---".format(g.sum_multiple - g.sum_ov_req - g.sum_open_conn))
+        logging.info("--- PERFORM: {} seconds ---".format(time.time() - g.request_start_time - g.sum_ov_req - g.sum_open_conn))
+
         """Set OData-Version header for all responses"""
         response.headers["OData-Version"] = "4.0"
         return response

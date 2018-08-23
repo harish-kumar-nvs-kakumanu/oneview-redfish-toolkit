@@ -16,6 +16,9 @@
 
 # Python libs
 import logging
+import time
+
+from flask import g
 
 # Modules own libs
 from oneview_redfish_toolkit.api.errors import OneViewRedfishError
@@ -81,6 +84,7 @@ class MultipleOneViewResource(object):
 
 class MultipleOneViewResourceFunction(object):
     def __init__(self, resource_name):
+        g.start_multiple = time.time()
         self.multiple_ov_resource_name = resource_name
 
     def __getattribute__(self, name):
@@ -110,5 +114,7 @@ class MultipleOneViewResourceRetriever(object):
             logging.exception(msg)
             raise OneViewRedfishError(msg)
         result = get_ov_client_strategy(resource, function, *args, **kwargs)
+
+        g.sum_multiple += (time.time() - g.start_multiple)
 
         return result

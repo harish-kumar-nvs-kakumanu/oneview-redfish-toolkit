@@ -16,8 +16,10 @@
 
 # Python libs
 import logging
+import time
 
 # 3rd party libs
+from flask import g
 from hpOneView.exceptions import HPOneViewException
 
 # Modules own libs
@@ -162,4 +164,10 @@ def execute_query_ov_client(ov_client, resource, function, *args, **kwargs):
     ov_resource = getattr(ov_client, resource)
     ov_function = getattr(ov_resource, function)
 
-    return ov_function(*args, **kwargs)
+    ov_req_start_time = time.time()
+    response = ov_function(*args, **kwargs)
+    elapsed_time = (time.time() - ov_req_start_time)
+    g.sum_ov_req += elapsed_time
+
+    logging.info("{}.{}: {}".format(resource, function, elapsed_time))
+    return response
