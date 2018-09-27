@@ -14,15 +14,11 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
-import logging
-
-from flask import abort
 from flask import Blueprint
-from flask import Response
-from flask_api import status
 
-from oneview_redfish_toolkit.api.errors import OneViewRedfishError
 from oneview_redfish_toolkit.api.session_service import SessionService
+from oneview_redfish_toolkit.blueprints.util.response_builder import \
+    ResponseBuilder
 
 session_service = Blueprint("session_service", __name__)
 
@@ -40,19 +36,4 @@ def get_session_service():
         Exceptions:
             OneViewRedfishError: General error.
     """
-    try:
-        # Build Session Service object and validates it
-        sessionservice = SessionService()
-
-        # Build redfish json
-        json_str = sessionservice.serialize()
-
-        # Build response and returns
-        return Response(
-            response=json_str,
-            status=status.HTTP_200_OK,
-            mimetype="application/json")
-    except OneViewRedfishError as e:
-        # In case of error print exception and abort
-        logging.exception(e)
-        return abort(status.HTTP_500_INTERNAL_SERVER_ERROR)
+    return ResponseBuilder.success(SessionService())

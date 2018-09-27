@@ -14,8 +14,6 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
-import collections
-
 from oneview_redfish_toolkit.api.redfish_json_validator \
     import RedfishJsonValidator
 from oneview_redfish_toolkit import config
@@ -47,20 +45,13 @@ class SessionService(RedfishJsonValidator):
         self.redfish["Name"] = "Session Service"
         self.redfish["Description"] = "Session service"
 
-        # All information bellow is hard-coded
-        # until we decide where to find it
-        # self.redfish["Status"] = dict()
-        # self.redfish["Status"]["Health"] = "OK"
-        # self.redfish["Status"]["HealthRollup"] = "OK"
-        # self.redfish["Status"]["State"] = "Enabled"
-
-        # Disable Session Service if authentication mode is conf
-        if config.auth_mode_is_conf():
-            self.redfish["ServiceEnabled"] = False
-        else:
+        # Enable Session Service only when authentication mode is session
+        if config.auth_mode_is_session():
             self.redfish["ServiceEnabled"] = True
-            self.redfish["Sessions"] = collections.OrderedDict()
-            self.redfish["Sessions"]["@odata.id"] = \
-                self.BASE_URI + "/Sessions"
+            self.redfish["Sessions"] = {
+                "@odata.id": self.BASE_URI + "/Sessions"
+            }
+        else:
+            self.redfish["ServiceEnabled"] = False
 
         self._validate()

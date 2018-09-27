@@ -38,9 +38,24 @@ class EventService(RedfishJsonValidator):
 
         super().__init__(self.SCHEMA_NAME)
 
+        self._build_common_values(delivery_retry_attempts,
+                                  delivery_retry_interval)
+
+        # Enable Event Service only when authentication mode is conf
+        if config.auth_mode_is_conf():
+            self.redfish["ServiceEnabled"] = True
+            self._build_values_when_service_is_enabled()
+        else:
+            self.redfish["ServiceEnabled"] = False
+
+        self._validate()
+
+    def _build_common_values(self,
+                             delivery_retry_attempts,
+                             delivery_retry_interval):
         self.redfish["@odata.type"] = self.get_odata_type()
         self.redfish["@odata.context"] = "/redfish/v1/$metadata" \
-            "#EventService.EventService"
+                                         "#EventService.EventService"
         self.redfish["@odata.id"] = self.BASE_URI
 
         self.redfish["Id"] = "EventService"
@@ -57,27 +72,19 @@ class EventService(RedfishJsonValidator):
         # self.redfish["Status"]["HealthRollup"] = "OK"
         # self.redfish["Status"]["State"] = "Enabled"
 
-        # Disable Event Service if authentication mode is conf
-        auth_mode = config.get_authentication_mode()
-        if auth_mode == "session":
-            self.redfish["ServiceEnabled"] = False
-        else:
-            self.redfish["ServiceEnabled"] = True
+    def _build_values_when_service_is_enabled(self):
+        event_types = sorted(util.get_subscriptions_by_type().keys())
 
-            submit_test_event = dict()
-            submit_test_event["EventType@Redfish.AllowableValues"] = \
-                list(util.get_subscriptions_by_type().keys())
-            submit_test_event["target"] = self.BASE_URI + \
-                "/Actions/EventService.SubmitTestEvent/"
+        submit_test_event = dict()
+        submit_test_event["EventType@Redfish.AllowableValues"] = event_types
+        submit_test_event["target"] = self.BASE_URI + \
+            "/Actions/EventService.SubmitTestEvent/"
 
-            self.redfish["Actions"] = dict()
-            self.redfish["Actions"]["#EventService.SubmitTestEvent"] = \
-                submit_test_event
+        self.redfish["Actions"] = dict()
+        self.redfish["Actions"]["#EventService.SubmitTestEvent"] = \
+            submit_test_event
 
-            self.redfish["Subscriptions"] = dict()
-            self.redfish["Subscriptions"]["@odata.id"] = \
-                self.BASE_URI + "/EventSubscriptions/"
-            self.redfish["EventTypesForSubscription"] = \
-                list(util.get_subscriptions_by_type().keys())
-
-        self._validate()
+        self.redfish["Subscriptions"] = dict()
+        self.redfish["Subscriptions"]["@odata.id"] = \
+            self.BASE_URI + "/EventSubscriptions/"
+        self.redfish["EventTypesForSubscription"] = event_types
